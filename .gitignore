@@ -1,0 +1,25 @@
+# Ignore build files
+target/
+bin/
+
+# Ignore dependencies
+*.jar
+*.war
+*.ear
+
+# Ignore IDE/editor-specific files
+*.log
+*.swp
+*.class
+*.DS_Store
+.vscode/
+.idea/
+*.iml
+
+# Ignore OS-specific files
+Thumbs.db
+.DS_Store
+
+# Ignore environment and credentials (if applicable)
+.env
+*.pem
