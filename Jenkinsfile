@@ -1,20 +1,12 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven' // Uses Jenkins-configured Maven
-    }
-    environment {
-        SONAR_URL = 'http://your-sonarqube-server:9000' // Set your SonarQube server
+        maven 'Maven'  // Uses Jenkins-configured Maven
     }
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/tosinsanda/NumberGuessGame10.git'
-            }
-        }
-        stage('Code Quality Check') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.host.url=$SONAR_URL'
+                git branch: 'main', url: 'https://github.com/YOUR_GITHUB_USERNAME/NumberGuessGame.git'
             }
         }
         stage('Build') {
@@ -25,7 +17,6 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
-                junit '**/target/surefire-reports/*.xml'
             }
         }
         stage('Archive Artifacts') {
@@ -33,9 +24,9 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         }
-        stage('Notify Team') {
+        stage('Deploy to Tomcat') {
             steps {
-                slackSend(channel: '#devops-team', message: "Build Completed Successfully!", color: "good")
+                sh 'scp -i ~/Saturday.pem target/*.war ec2-user@54.227.174.111:/opt/tomcat/webapps/'
             }
         }
     }
