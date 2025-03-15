@@ -31,4 +31,22 @@ public class NumberGuessServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        int guess = Integer.parseInt(request.getParameter("guess"));
+        if (guess < targetNumber) {
+            out.println("<h2>Your guess is too low. Try again!</h2>");
+        } else if (guess > targetNumber) {
+            out.println("<h2>Your guess is too high. Try again!</h2>");
+        } else {
+            out.println("<h2>Congratulations! You guessed the number!</h2>");
+            targetNumber = new Random().nextInt(100) + 1;
+        }
+        out.println("<a href='guess'>Play Again</a>");
+    }
+
+    // ✅ Added this method to fix the error
+    public int getTargetNumber() {
+        return targetNumber;
+    }
+}
