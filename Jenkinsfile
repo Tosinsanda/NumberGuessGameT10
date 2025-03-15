@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Deploy to Tomcat') {
             steps {
-                sh 'scp -i ~/Saturday.pem target/*.war ec2-user@54.227.174.111:/opt/tomcat/webapps/'
+                sh 'scp -i ~/Saturday.pem target/*.war ec2-user@54.159.249.43:/opt/tomcat/webapps/'
             }
         }
     }
